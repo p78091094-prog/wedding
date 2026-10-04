@@ -32,8 +32,8 @@
             shippori: ['"Shippori Mincho"', 'serif']
           },
           boxShadow: {
-            'glow-soft': '0 12px 35px -8px rgba(197, 155, 88, 0.16), 0 0 20px 2px rgba(255, 255, 255, 0.9)',
-            'card-zen': '0 20px 45px -15px rgba(43, 41, 39, 0.06)'
+            'glow-soft': '0 12px 35px -8px rgba(73, 88, 117, 0.22), 0 0 20px 2px rgba(255, 255, 255, 0.9)',
+            'card-zen': '0 20px 45px -15px rgba(43, 41, 39, 0.08)'
           }
         }
       }
@@ -128,7 +128,6 @@
       transform: rotate(20deg);
       filter: blur(.1px);
     }
-
   </style>
 </head>
 <body class="relative antialiased selection:bg-wa-yamabuki/20 selection:text-wa-sumi">
@@ -147,7 +146,7 @@
         <a href="#about" class="hover:text-wa-yamabuki transition-colors">關於我們</a>
         <a href="#details" class="hover:text-wa-yamabuki transition-colors">婚宴詳情</a>
         <a href="#map-section" class="hover:text-wa-yamabuki transition-colors">地圖交通</a>
-        <a href="#rsvp" class="px-4 py-1.5 rounded-full border border-wa-yamabuki text-wa-yamabuki hover:bg-wa-yamabuki hover:text-white transition-all shadow-sm">
+        <a href="#rsvp" class="px-4 py-1.5 rounded-full border border-wa-yamabuki text-wa-sumi hover:bg-wa-yamabuki hover:text-white transition-all shadow-sm">
           出席回函
         </a>
       </div>
@@ -605,7 +604,7 @@
             name="entry.157110616" 
             required 
             placeholder="請輸入您的姓名" 
-            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/20 text-stone-800"
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/30 text-stone-800"
           />
         </div>
 
@@ -620,7 +619,7 @@
             name="entry.351634674" 
             required 
             placeholder="例：yourname@example.com" 
-            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/20 text-stone-800"
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/30 text-stone-800"
           />
         </div>
 
@@ -695,7 +694,7 @@
             class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-white text-stone-800"
           >
             <option value="不需要">不需要</option>
-            <option value="需要">需要兒童椅</option>
+            <option value="需要">需要</option>
           </select>
         </div>
 
@@ -709,12 +708,12 @@
             name="entry.1758132440" 
             rows="3" 
             placeholder="請留下您對 Steve & Esther 的溫暖祝福或特殊需求..." 
-            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/20 text-stone-800"
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/30 text-stone-800"
           ></textarea>
         </div>
 
         <!-- Submit Button -->
-        <div class="pt-4">
+        <div class="pt-4 space-y-3">
           <button 
             type="submit" 
             id="submitBtn"
@@ -722,6 +721,17 @@
           >
             <span>確認送出回函 CONFIRM RSVP</span>
           </button>
+          
+          <div class="text-center">
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSffsZEfRwKtqxDMsvUvxVbS0CphP69BpTop-arS3lfKfwoaYQ/viewform?usp=publish-editor" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-[11px] text-stone-400 hover:text-wa-yamabuki transition-colors underline inline-flex items-center space-x-1"
+            >
+              <span>如遇特殊瀏覽器防護阻擋，亦可點此直接於 Google 表單填寫 ↗</span>
+            </a>
+          </div>
         </div>
       </form>
     </div>
@@ -762,15 +772,47 @@
   </footer>
 
   <script>
-    // ... existing code ... ...
-    // 2. Accordion Interaction Logic
+    /* 1. 精準倒數計時器邏輯 (鎖定目標：2027/03/06 18:00:00 晚宴入席) */
+    const TARGET_DATE = new Date('2027-03-06T18:00:00+08:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = TARGET_DATE - now;
+
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      if (difference <= 0) {
+        if (daysEl) daysEl.textContent = '00';
+        if (hoursEl) hoursEl.textContent = '00';
+        if (minutesEl) minutesEl.textContent = '00';
+        if (secondsEl) secondsEl.textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    // 啟動倒數並每秒更新
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* 2. Accordion 摺疊交通資訊面板邏輯 */
     function toggleAccordion(contentId, iconId) {
       const content = document.getElementById(contentId);
       const icon = document.getElementById(iconId);
-      
       const isOpen = content.classList.contains('open');
 
-      // Close all other accordion items for clean minimalist UX
       document.querySelectorAll('.accordion-content').forEach(el => {
         el.classList.remove('open');
       });
@@ -784,7 +826,7 @@
       }
     }
 
-    // 3. Intelligent Form Dependency Logic based on Google Form Attendee Field
+    /* 3. 智慧出席表單邏輯：僅於人數大於0時展開飲食與兒童椅選項 */
     function handleGuestSelectionChange(attendeeValue) {
       const dietaryGroup = document.getElementById('dietary-group');
       const highchairGroup = document.getElementById('highchair-group');
@@ -798,7 +840,7 @@
       }
     }
 
-    // 4. Form Submission & Modal Handling
+    /* 4. Google 表單靜默提交與致謝彈窗機制 */
     let formSubmitted = false;
 
     function handleFormSubmit(e) {
@@ -806,20 +848,20 @@
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-75');
       submitBtn.innerHTML = `
-        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
         </svg>
         <span>傳送中 SENDING...</span>
       `;
       formSubmitted = true;
-      
-      // Fallback timeout in case cross-origin iframe does not trigger load event
+
+      // 設置安全計時機制確保即時彈出完成視窗
       setTimeout(() => {
         if (formSubmitted) {
           showSuccessModal();
         }
-      }, 1200);
+      }, 1000);
     }
 
     function handleIframeLoad() {
@@ -842,7 +884,6 @@
       submitBtn.classList.remove('opacity-75');
       submitBtn.innerHTML = `<span>確認送出回函 CONFIRM RSVP</span>`;
       
-      // Reset form safely
       document.getElementById('weddingRsvpForm').reset();
       handleGuestSelectionChange('無法出席');
       formSubmitted = false;
@@ -857,7 +898,7 @@
       card.classList.add('scale-95');
     }
 
-    // 5. Copy Address Helper (Using document.execCommand('copy') for safe iframe compatibility)
+    /* 5. 複製飯店地址輔助函式 */
     function copyVenueAddress(text) {
       const tempInput = document.createElement('textarea');
       tempInput.value = text;
