@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Julian & Evelyn | Wedding Invitation</title>
+  <title>Steve & Esther | 婚禮邀請函 Wedding Invitation</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Noto+Serif+TC:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -15,23 +15,25 @@
       theme: {
         extend: {
           colors: {
-            morandi: {
-              gold: '#d4a373',
-              sage: '#8da399',
-              sand: '#fefae0',
-              cream: '#faedcd',
-              stone: '#e9edc9',
-              dark: '#3d3a37',
-              charcoal: '#2b2927'
+            wa: {
+              sumi: '#2b2927',       // 墨黑 (Sumi)
+              kinari: '#e9ecf2',     // 淡群青白 / 霧藍白
+              washi: '#d5dbe5',      // 群青和紙灰藍
+              sakura: '#d8cfd6',     // 淡櫻灰紫
+              matcha: '#7f8d89',     // 青磁鼠綠
+              yamabuki: '#9aa6bd',   // 霧銀群青（主強調色）
+              mizu: '#c7d2df',       // 水群青灰
+              border: '#bcc5d2'      // 群青灰隔線
             }
           },
           fontFamily: {
             cormorant: ['"Cormorant Garamond"', 'serif'],
-            serifTc: ['"Noto Serif TC"', 'serif']
+            serifTc: ['"Noto Serif TC"', '"Shippori Mincho"', 'serif'],
+            shippori: ['"Shippori Mincho"', 'serif']
           },
           boxShadow: {
-            'glow-soft': '0 10px 30px -5px rgba(212, 163, 115, 0.15), 0 0 15px 1px rgba(255, 255, 255, 0.8)',
-            'card-soft': '0 20px 40px -15px rgba(61, 58, 55, 0.08)'
+            'glow-soft': '0 12px 35px -8px rgba(197, 155, 88, 0.16), 0 0 20px 2px rgba(255, 255, 255, 0.9)',
+            'card-zen': '0 20px 45px -15px rgba(43, 41, 39, 0.06)'
           }
         }
       }
@@ -40,31 +42,40 @@
 
   <style>
     body {
-      font-family: 'Noto Serif TC', serif;
-      background-color: #faf7f2;
-      color: #3d3a37;
+      font-family: 'Noto Serif TC', 'Shippori Mincho', serif;
+      background-color: #cbd3df;
+      background-image: linear-gradient(180deg, #c4cedd 0%, #d7dce5 46%, #c7d0dc 100%);
+      background-attachment: fixed;
+      color: #2b2927;
       overflow-x: hidden;
+      letter-spacing: 0.04em;
     }
     .font-cormorant {
       font-family: 'Cormorant Garamond', serif;
     }
     .glass-nav {
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(221, 226, 235, 0.88);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
     .glass-card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(188, 197, 210, 0.78);
     }
     .countdown-card {
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 12px 30px -8px rgba(141, 163, 153, 0.25), 0 0 20px rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 25px -6px rgba(73, 88, 117, 0.16), 0 0 15px rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(188, 197, 210, 0.88);
     }
-    /* Smooth Accordion Content Transition */
+    .washi-pattern {
+      background-image: 
+        radial-gradient(rgba(68, 86, 122, 0.10) 0.7px, transparent 0.7px),
+        radial-gradient(rgba(255, 255, 255, 0.16) 0.7px, transparent 0.7px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
     .accordion-content {
       max-height: 0;
       overflow: hidden;
@@ -75,29 +86,68 @@
       max-height: 380px;
       opacity: 1;
     }
-    /* Subtle background texture overlay */
-    .bg-paper-pattern {
-      background-image: radial-gradient(#d4a373 0.65px, transparent 0.65px);
-      background-size: 24px 24px;
-      opacity: 0.15;
+    /* Minimalist Japanese Seal / 印章裝飾 */
+    .hanko-stamp {
+      border: 1.5px solid #7b88a3;
+      color: #7b88a3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 11px;
+      padding: 2px 5px;
+      line-height: 1;
+      transform: rotate(-3deg);
     }
+
+    /* Early-spring Japanese atmosphere */
+    .spring-haze {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(219,226,239,.28), transparent 28%),
+        radial-gradient(circle at 82% 18%, rgba(172,184,207,.22), transparent 25%),
+        radial-gradient(circle at 75% 78%, rgba(115,132,165,.16), transparent 30%);
+    }
+    .section-kicker::before, .section-kicker::after {
+      content: '◇';
+      color: #7b88a3;
+      opacity: .55;
+      margin: 0 .65rem;
+      font-size: .7em;
+    }
+    .spring-note {
+      background: linear-gradient(135deg, rgba(244,247,251,.88), rgba(224,229,238,.94));
+      border: 1px solid rgba(157,170,193,.55);
+      box-shadow: 0 18px 42px -26px rgba(43,41,39,.24);
+    }
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 7px;
+      border-radius: 70% 30% 70% 30%;
+      background: rgba(221,226,238,.78);
+      transform: rotate(20deg);
+      filter: blur(.1px);
+    }
+
   </style>
 </head>
-<body class="relative text-stone-800 antialiased selection:bg-morandi-gold/20 selection:text-stone-900">
+<body class="relative antialiased selection:bg-wa-yamabuki/20 selection:text-wa-sumi">
 
-  <!-- Background Texture Layer -->
-  <div class="fixed inset-0 pointer-events-none bg-paper-pattern z-0"></div>
+  <!-- Background Japanese Texture Layer -->
+  <div class="fixed inset-0 pointer-events-none washi-pattern z-0 opacity-75"></div>
 
-  <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/50 transition-all duration-300">
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-wa-border/60 transition-all duration-300">
     <div class="max-w-5xl mx-auto px-6 h-18 flex items-center justify-between">
-      <a href="#hero" class="font-cormorant text-2xl tracking-[0.25em] text-morandi-dark hover:text-morandi-gold transition-colors font-medium">
-        J & E
+      <a href="#hero" class="flex items-center space-x-2 text-wa-sumi hover:text-wa-yamabuki transition-colors">
+        <span class="font-cormorant text-2xl tracking-[0.25em] font-medium">S & E</span>
+        <span class="hanko-stamp hidden sm:inline-block">良緣</span>
       </a>
       
-      <div class="flex items-center space-x-6 sm:space-x-10 text-xs sm:text-sm tracking-widest text-stone-600 font-light">
-        <a href="#about" class="hover:text-morandi-gold transition-colors">關於我們</a>
-        <a href="#details" class="hover:text-morandi-gold transition-colors">婚禮詳情</a>
-        <a href="#rsvp" class="px-3.5 py-1.5 rounded-full border border-morandi-gold/50 text-morandi-gold hover:bg-morandi-gold hover:text-white transition-all shadow-sm">
+      <div class="flex items-center space-x-5 sm:space-x-8 text-xs sm:text-sm tracking-widest text-stone-600 font-light">
+        <a href="#about" class="hover:text-wa-yamabuki transition-colors">關於我們</a>
+        <a href="#details" class="hover:text-wa-yamabuki transition-colors">婚宴詳情</a>
+        <a href="#map-section" class="hover:text-wa-yamabuki transition-colors">地圖交通</a>
+        <a href="#rsvp" class="px-4 py-1.5 rounded-full border border-wa-yamabuki text-wa-yamabuki hover:bg-wa-yamabuki hover:text-white transition-all shadow-sm">
           出席回函
         </a>
       </div>
@@ -105,53 +155,58 @@
   </nav>
 
   <header id="hero" class="relative min-h-screen flex items-center justify-center text-center px-4 pt-16 overflow-hidden">
-    <!-- Hero Image Background with Warm Morandi Overlay -->
+    <!-- Hero Image Background -->
     <div class="absolute inset-0 z-0">
       <img 
-        src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80" 
-        alt="Wedding Hero Background" 
-        class="w-full h-full object-cover object-center filter brightness-[0.88] saturate-[0.85]"
-        onerror="this.src='https://placehold.co/1920x1080/e9edc9/3d3a37?text=Julian+%26+Evelyn'"
+        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=80" 
+        alt="Steve & Esther Wedding Hero" 
+        class="w-full h-full object-cover object-center filter brightness-[0.84] saturate-[0.85]"
+        onerror="this.src='https://placehold.co/1920x1080/d5dbe5/2b3448?text=Steve+%26+Esther'"
       />
-      <div class="absolute inset-0 bg-gradient-to-b from-stone-900/40 via-stone-800/20 to-[#faf7f2]"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-stone-900/38 via-stone-800/18 to-[#cbd3df]"></div>
+      <div class="absolute inset-0 spring-haze"></div>
+      <span class="petal top-[18%] left-[10%] rotate-[28deg]"></span>
+      <span class="petal top-[28%] right-[13%] rotate-[-12deg] scale-75"></span>
+      <span class="petal top-[42%] left-[18%] rotate-[48deg] scale-90"></span>
     </div>
 
     <!-- Hero Content -->
-    <div class="relative z-10 max-w-3xl mx-auto py-16 flex flex-col items-center">
-      <p class="font-cormorant italic text-lg sm:text-2xl text-morandi-sand tracking-widest mb-3 opacity-95">
-        Together with their families
-      </p>
+    <div class="relative z-10 max-w-3xl mx-auto py-20 flex flex-col items-center">
+      <div class="inline-flex items-center space-x-2 mb-4 px-4 py-1 rounded-full bg-white/30 backdrop-blur-md border border-white/40">
+        <span class="w-1.5 h-1.5 rounded-full bg-wa-yamabuki"></span>
+        <span class="font-serifTc text-xs tracking-[0.3em] text-white">春日良辰・幸得良緣</span>
+      </div>
       
       <!-- Couple Names -->
-      <h1 class="font-cormorant text-5xl sm:text-7xl lg:text-8xl tracking-wider text-white font-normal mb-2 drop-shadow-md">
-        Julian <span class="font-light text-morandi-gold text-4xl sm:text-6xl">&</span> Evelyn
+      <h1 class="font-cormorant text-5xl sm:text-7xl lg:text-8xl tracking-wider text-white font-normal mb-3 drop-shadow-md">
+        Steve <span class="font-light text-wa-yamabuki text-4xl sm:text-6xl">&</span> Esther
       </h1>
-      <p class="text-sm sm:text-base tracking-[0.35em] text-stone-200 font-light mb-8">
-        秉勳 <span class="mx-2 text-xs text-morandi-gold">•</span> 晴涵
+      <p class="text-sm sm:text-base tracking-[0.4em] text-stone-200 font-light mb-8">
+        政勳 <span class="mx-2 text-xs text-wa-yamabuki">•</span> 薏璇
       </p>
 
-      <div class="w-16 h-px bg-morandi-gold/70 mb-8"></div>
+      <div class="w-12 h-px bg-wa-yamabuki/80 mb-7"></div>
 
       <!-- Soul Slogan -->
       <blockquote class="font-cormorant italic text-xl sm:text-2xl text-white/95 max-w-xl mx-auto leading-relaxed tracking-wide drop-shadow">
-        “Two souls, one shared journey — woven in quiet devotion and warm sunlight.”
+        “In quiet harmony, two lives fold into one gentle eternity.”
       </blockquote>
       <p class="text-xs sm:text-sm tracking-widest text-stone-200 mt-2 font-light">
-        執手相伴，溫柔同行
+        三月春光正好，願與你共度往後四季
       </p>
 
       <!-- Wedding Date Tag -->
-      <div class="mt-8 px-6 py-2 rounded-full glass-card inline-flex items-center space-x-3 text-stone-700 shadow-lg">
-        <span class="w-2 h-2 rounded-full bg-morandi-gold animate-pulse"></span>
-        <span class="tracking-[0.2em] text-xs sm:text-sm uppercase font-cormorant font-semibold text-morandi-dark">
-          2026.11.28 SATURDAY • 12:00 PM
+      <div class="mt-8 px-7 py-2.5 rounded-full glass-card inline-flex items-center space-x-3 text-wa-sumi shadow-lg">
+        <span class="w-2 h-2 rounded-full bg-wa-yamabuki animate-pulse"></span>
+        <span class="tracking-[0.2em] text-xs sm:text-sm uppercase font-cormorant font-semibold text-wa-sumi">
+          2027.03.06 SATURDAY • 18:00 EVENING
         </span>
       </div>
     </div>
 
     <!-- Scroll Down Indicator -->
-    <a href="#countdown" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-stone-400 hover:text-morandi-gold transition-colors">
-      <span class="text-[10px] tracking-[0.25em] uppercase font-light mb-2">Scroll</span>
+    <a href="#countdown" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-stone-400 hover:text-wa-yamabuki transition-colors">
+      <span class="text-[10px] tracking-[0.3em] uppercase font-light mb-2">Scroll</span>
       <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
@@ -159,22 +214,22 @@
   </header>
 
   <section id="countdown" class="relative z-10 -mt-16 max-w-4xl mx-auto px-4">
-    <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-glow-soft border border-white">
+    <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-glow-soft border border-wa-border">
       <div class="text-center mb-8">
-        <span class="text-xs tracking-[0.3em] uppercase text-morandi-gold font-semibold">Counting Down</span>
-        <h2 class="text-xl sm:text-2xl font-serifTc tracking-widest text-stone-700 mt-1">珍貴時刻・攜手倒數</h2>
+        <span class="text-[11px] tracking-[0.35em] uppercase text-wa-yamabuki font-semibold">Counting Down To The Banquet</span>
+        <h2 class="text-xl sm:text-2xl font-serifTc tracking-widest text-wa-sumi mt-1">吉辰攜手・同心倒數</h2>
       </div>
 
-      <!-- Artistic Glow Cards with Soft Shadows -->
+      <!-- Artistic Glow Cards with Japanese Delicate Separators -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         
         <!-- Days Card -->
         <div class="countdown-card rounded-2xl p-4 sm:p-6 text-center transition-transform hover:-translate-y-1 duration-300">
           <div class="flex items-center justify-center space-x-3">
-            <span id="days" class="font-cormorant text-4xl sm:text-5xl font-light text-morandi-dark tracking-tighter">00</span>
-            <div class="h-8 w-px bg-stone-200"></div>
+            <span id="days" class="font-cormorant text-4xl sm:text-5xl font-light text-wa-sumi tracking-tighter">00</span>
+            <div class="h-8 w-px bg-wa-border"></div>
             <div class="flex flex-col text-left">
-              <span class="text-[11px] font-semibold tracking-wider text-morandi-gold uppercase font-cormorant">Days</span>
+              <span class="text-[11px] font-semibold tracking-wider text-wa-yamabuki uppercase font-cormorant">Days</span>
               <span class="text-xs text-stone-500 font-light">天</span>
             </div>
           </div>
@@ -183,10 +238,10 @@
         <!-- Hours Card -->
         <div class="countdown-card rounded-2xl p-4 sm:p-6 text-center transition-transform hover:-translate-y-1 duration-300">
           <div class="flex items-center justify-center space-x-3">
-            <span id="hours" class="font-cormorant text-4xl sm:text-5xl font-light text-morandi-dark tracking-tighter">00</span>
-            <div class="h-8 w-px bg-stone-200"></div>
+            <span id="hours" class="font-cormorant text-4xl sm:text-5xl font-light text-wa-sumi tracking-tighter">00</span>
+            <div class="h-8 w-px bg-wa-border"></div>
             <div class="flex flex-col text-left">
-              <span class="text-[11px] font-semibold tracking-wider text-morandi-gold uppercase font-cormorant">Hours</span>
+              <span class="text-[11px] font-semibold tracking-wider text-wa-yamabuki uppercase font-cormorant">Hours</span>
               <span class="text-xs text-stone-500 font-light">時</span>
             </div>
           </div>
@@ -195,10 +250,10 @@
         <!-- Minutes Card -->
         <div class="countdown-card rounded-2xl p-4 sm:p-6 text-center transition-transform hover:-translate-y-1 duration-300">
           <div class="flex items-center justify-center space-x-3">
-            <span id="minutes" class="font-cormorant text-4xl sm:text-5xl font-light text-morandi-dark tracking-tighter">00</span>
-            <div class="h-8 w-px bg-stone-200"></div>
+            <span id="minutes" class="font-cormorant text-4xl sm:text-5xl font-light text-wa-sumi tracking-tighter">00</span>
+            <div class="h-8 w-px bg-wa-border"></div>
             <div class="flex flex-col text-left">
-              <span class="text-[11px] font-semibold tracking-wider text-morandi-gold uppercase font-cormorant">Mins</span>
+              <span class="text-[11px] font-semibold tracking-wider text-wa-yamabuki uppercase font-cormorant">Mins</span>
               <span class="text-xs text-stone-500 font-light">分</span>
             </div>
           </div>
@@ -207,10 +262,10 @@
         <!-- Seconds Card -->
         <div class="countdown-card rounded-2xl p-4 sm:p-6 text-center transition-transform hover:-translate-y-1 duration-300">
           <div class="flex items-center justify-center space-x-3">
-            <span id="seconds" class="font-cormorant text-4xl sm:text-5xl font-light text-morandi-dark tracking-tighter text-morandi-gold">00</span>
-            <div class="h-8 w-px bg-stone-200"></div>
+            <span id="seconds" class="font-cormorant text-4xl sm:text-5xl font-light text-wa-yamabuki tracking-tighter">00</span>
+            <div class="h-8 w-px bg-wa-border"></div>
             <div class="flex flex-col text-left">
-              <span class="text-[11px] font-semibold tracking-wider text-morandi-gold uppercase font-cormorant">Secs</span>
+              <span class="text-[11px] font-semibold tracking-wider text-wa-yamabuki uppercase font-cormorant">Secs</span>
               <span class="text-xs text-stone-500 font-light">秒</span>
             </div>
           </div>
@@ -222,382 +277,439 @@
 
   <section id="about" class="py-24 px-4 max-w-4xl mx-auto">
     <div class="text-center mb-14">
-      <span class="text-xs tracking-[0.35em] text-morandi-sage uppercase font-semibold">Our Journey</span>
-      <h2 class="text-2xl sm:text-3xl font-serifTc tracking-widest text-stone-800 mt-1">關於我們</h2>
-      <div class="w-10 h-0.5 bg-morandi-gold/60 mx-auto mt-3"></div>
+      <span class="section-kicker text-xs tracking-[0.35em] text-wa-matcha uppercase font-semibold">Our Story</span>
+      <h2 class="text-2xl sm:text-3xl font-serifTc tracking-widest text-wa-sumi mt-1">關於我們</h2>
+      <div class="w-8 h-0.5 bg-wa-yamabuki/60 mx-auto mt-3"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
       <div class="relative group">
-        <div class="absolute -inset-2 bg-gradient-to-r from-morandi-gold/20 to-morandi-sage/20 rounded-3xl blur-lg transition duration-500 opacity-60"></div>
-        <div class="relative overflow-hidden rounded-2xl shadow-card-soft">
+        <div class="absolute -inset-2 bg-gradient-to-r from-wa-yamabuki/15 to-wa-matcha/15 rounded-3xl blur-lg transition duration-500 opacity-60"></div>
+        <div class="relative overflow-hidden rounded-2xl shadow-card-zen border border-wa-border">
           <img 
-            src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=80" 
-            alt="Julian & Evelyn Moment" 
-            class="w-full h-80 object-cover object-center transform transition duration-700 hover:scale-105"
-            onerror="this.src='https://placehold.co/800x600/fefae0/3d3a37?text=Our+Story'"
+            src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=80" 
+            alt="Steve & Esther Moment" 
+            class="w-full h-84 object-cover object-center transform transition duration-700 hover:scale-105"
+            onerror="this.src='https://placehold.co/800x600/d5dbe5/2b3448?text=Steve+%26+Esther'"
           />
         </div>
       </div>
 
-      <div class="space-y-5 text-stone-600 leading-relaxed font-light text-sm sm:text-base">
-        <h3 class="font-cormorant text-3xl text-morandi-dark tracking-wide italic">
-          “From quiet conversations to a lifelong promise.”
+      <div class="space-y-5 text-stone-700 leading-relaxed font-light text-sm sm:text-base">
+        <div class="flex items-center space-x-2">
+          <span class="hanko-stamp">結緣</span>
+          <span class="text-xs tracking-widest text-wa-matcha font-medium">心之所向・素履以往</span>
+        </div>
+        <h3 class="font-cormorant text-3xl text-wa-sumi tracking-wide italic">
+          “Two paths quietly converged into one serene tomorrow.”
         </h3>
         <p>
-          相識於秋季微風徐徐的午後，在無數杯咖啡的溫潤香氣與生活碎語中，我們找到了靈魂深處的共鳴與依歸。
+          在平淡而真摯的日子裡，我們學會傾聽彼此的節奏。從初見時的怦然，到如今柴米油鹽裡的相濡以沫，每一步都踏實而溫潤。
         </p>
         <p>
-          從兩條相遇的平行線，到交織出同一片日麗風景。在這一天，誠摯邀請陪伴我們成長的摯親好友，一同見證這段承諾的起始。
+          2027 年三月，春意初萌、晚風仍帶著微涼。我們誠摯邀請一路見證彼此成長的家人與摯友，來到港都高雄，共聚一堂，在柔和的早春夜色裡分享這份安靜而真摯的喜悅。
         </p>
         <div class="pt-2 flex items-center space-x-4">
-          <div class="h-px flex-1 bg-stone-200"></div>
-          <span class="font-cormorant text-xl text-morandi-gold tracking-widest">Julian & Evelyn</span>
-          <div class="h-px flex-1 bg-stone-200"></div>
+          <div class="h-px flex-1 bg-wa-border"></div>
+          <span class="font-cormorant text-xl text-wa-yamabuki tracking-widest">Steve & Esther</span>
+          <div class="h-px flex-1 bg-wa-border"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="details" class="py-20 bg-stone-100/60 relative">
+  <section id="details" class="py-20 bg-wa-washi/40 relative">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-center mb-14">
-        <span class="text-xs tracking-[0.35em] text-morandi-gold uppercase font-semibold">Wedding Schedule & Details</span>
-        <h2 class="text-2xl sm:text-3xl font-serifTc tracking-widest text-stone-800 mt-1">婚禮詳情</h2>
-        <div class="w-10 h-0.5 bg-morandi-gold/60 mx-auto mt-3"></div>
+        <span class="section-kicker text-xs tracking-[0.35em] text-wa-yamabuki uppercase font-semibold">Evening Banquet Details</span>
+        <h2 class="text-2xl sm:text-3xl font-serifTc tracking-widest text-wa-sumi mt-1">婚宴詳情</h2>
+        <div class="w-8 h-0.5 bg-wa-yamabuki/60 mx-auto mt-3"></div>
       </div>
 
       <!-- Vertical V-Card Container -->
-      <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-card-soft border border-stone-200/60 space-y-12">
+      <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-card-zen border border-wa-border space-y-12">
         
-        <!-- Ceremony & Banquet Details Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-stone-200">
+        <!-- Banquet Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-wa-border">
           
-          <!-- Ceremony Info -->
+          <!-- Reception Info -->
           <div class="space-y-4 pt-2 md:pt-0 md:pr-6 text-center md:text-left">
-            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-morandi-sand text-morandi-gold mb-1">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-wa-kinari text-wa-yamabuki border border-wa-border mb-1">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
-            <h3 class="text-lg font-serifTc tracking-wider text-morandi-dark font-medium">觀禮儀式 CEREMONY</h3>
-            <p class="text-sm text-stone-500 font-light">日光草坪花園禮堂</p>
-            <div class="space-y-1 text-sm text-stone-700">
-              <p><strong class="font-medium text-stone-900">時間：</strong> 10:30 AM 迎賓入場</p>
-              <p><strong class="font-medium text-stone-900">證婚：</strong> 11:00 AM 誓言交換</p>
+            <h3 class="text-lg font-serifTc tracking-wider text-wa-sumi font-medium">迎賓茶會 RECEPTION</h3>
+            <p class="text-sm text-stone-500 font-light">5 樓 福明廳 前廊迎賓區</p>
+            <div class="space-y-1 text-sm text-stone-700 font-light">
+              <p><strong class="font-medium text-wa-sumi">迎賓時間：</strong> 17:30 PM 嘉賓入場</p>
+              <p><strong class="font-medium text-wa-sumi">茶點品茗：</strong> 備有迎賓特調茶飲與精緻茶點</p>
             </div>
           </div>
 
-          <!-- Luncheon Info -->
+          <!-- Evening Banquet Info -->
           <div class="space-y-4 pt-8 md:pt-0 md:pl-8 text-center md:text-left">
-            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-morandi-stone/60 text-morandi-sage mb-1">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-wa-kinari text-wa-matcha border border-wa-border mb-1">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path>
               </svg>
             </div>
-            <h3 class="text-lg font-serifTc tracking-wider text-morandi-dark font-medium">婚禮午宴 LUNCHEON</h3>
-            <p class="text-sm text-stone-500 font-light">晨曦宴會大廳（3樓）</p>
-            <div class="space-y-1 text-sm text-stone-700">
-              <p><strong class="font-medium text-stone-900">入席：</strong> 12:00 PM 準時開席</p>
-              <p><strong class="font-medium text-stone-900">形式：</strong> 精緻中西交融套餐宴會</p>
+            <h3 class="text-lg font-serifTc tracking-wider text-wa-sumi font-medium">婚禮晚宴 BANQUET</h3>
+            <p class="text-sm text-stone-500 font-light">5 樓 福明廳 主宴會廳</p>
+            <div class="space-y-1 text-sm text-stone-700 font-light">
+              <p><strong class="font-medium text-wa-sumi">準時開席：</strong> 18:00 PM 入席・18:30 PM 盛宴開席</p>
+              <p><strong class="font-medium text-wa-sumi">宴席美饌：</strong> 港都瀚品名廚特選海陸御膳</p>
             </div>
           </div>
 
         </div>
 
-        <div class="h-px bg-stone-200"></div>
+        <div class="h-px bg-wa-border"></div>
 
         <!-- Dress Code Section -->
-        <div class="bg-morandi-sand/50 rounded-2xl p-6 sm:p-8 text-center space-y-4">
-          <span class="text-xs uppercase tracking-[0.3em] font-semibold text-morandi-gold">Dress Code</span>
-          <h4 class="text-lg font-serifTc text-morandi-dark">著裝建議・莫蘭迪暖陽色系</h4>
-          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto leading-relaxed font-light">
-            歡迎穿著大地色、米杏白、柔和鼠尾草綠、暖焦糖色系與我們同慶，在合照中留下最和諧純粹的溫柔光景。
+        <div class="bg-wa-kinari/70 rounded-2xl p-6 sm:p-8 text-center space-y-4 border border-wa-border/70">
+          <div class="inline-flex items-center space-x-2">
+            <span class="hanko-stamp">盛裝</span>
+            <span class="text-xs uppercase tracking-[0.3em] font-semibold text-wa-yamabuki">Dress Code</span>
+          </div>
+          <h4 class="text-lg font-serifTc text-wa-sumi">著裝建議・三月早春日系柔和色</h4>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-xl mx-auto leading-relaxed font-light">
+            三月高雄已帶春意，傍晚仍可能微涼。建議以低飽和、柔霧感的日系色調為主，例如生成米白、春櫻霧粉、若葉灰綠、藤霧淡紫與春空灰藍；可搭配薄西裝、針織罩衫或輕質外套，在舒適之餘也與早春宴會氛圍自然相融。
           </p>
+          <div class="spring-note rounded-xl px-4 py-3 max-w-xl mx-auto text-[11px] sm:text-xs text-stone-500 leading-relaxed">
+            女賓可選雪紡、緞面或柔軟針織；男賓可選米灰、霧藍、淺卡其西裝或襯衫。建議避免全黑、螢光色與過度高飽和色彩。
+          </div>
           <!-- Color Palette Swatches -->
-          <div class="flex items-center justify-center space-x-3 pt-2">
+          <div class="flex items-center justify-center space-x-4 pt-2">
             <div class="flex flex-col items-center">
-              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #d4a373;"></span>
-              <span class="text-[10px] text-stone-500 mt-1">Warm Sand</span>
+              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #f7f1e8; border: 1px solid #d7cec4;"></span>
+              <span class="text-[10px] text-stone-500 mt-1">生成米白</span>
             </div>
             <div class="flex flex-col items-center">
-              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #8da399;"></span>
-              <span class="text-[10px] text-stone-500 mt-1">Sage Mist</span>
+              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #efdeda;"></span>
+              <span class="text-[10px] text-stone-500 mt-1">春櫻霧粉</span>
             </div>
             <div class="flex flex-col items-center">
-              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #faedcd;"></span>
-              <span class="text-[10px] text-stone-500 mt-1">Almond</span>
+              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #b9c0aa;"></span>
+              <span class="text-[10px] text-stone-500 mt-1">若葉灰綠</span>
             </div>
             <div class="flex flex-col items-center">
-              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #e9edc9;"></span>
-              <span class="text-[10px] text-stone-500 mt-1">Olive Light</span>
+              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #d9d2df;"></span>
+              <span class="text-[10px] text-stone-500 mt-1">藤霧淡紫</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <span class="w-8 h-8 rounded-full border-2 border-white shadow-sm" style="background-color: #dbe6e8;"></span>
+              <span class="text-[10px] text-stone-500 mt-1">春空灰藍</span>
             </div>
           </div>
         </div>
 
         <!-- Venue Location with Strict Mobile No-Wrap -->
         <div class="space-y-4 text-center">
-          <span class="text-xs uppercase tracking-[0.3em] font-semibold text-morandi-sage">Location</span>
-          <h4 class="text-lg sm:text-xl font-serifTc text-morandi-dark">
-            <span class="whitespace-nowrap">台北晶華酒店・晶英宴會廳</span>
+          <span class="text-xs uppercase tracking-[0.3em] font-semibold text-wa-matcha">Venue Location</span>
+          <h4 class="text-xl sm:text-2xl font-serifTc text-wa-sumi font-medium">
+            <span class="whitespace-nowrap">高雄翰品酒店・5樓 福明廳</span>
           </h4>
           <p class="text-sm text-stone-600">
-            <span class="whitespace-nowrap">台北市中山區中山北路二段39巷3號</span>
+            <span class="whitespace-nowrap">高雄市鹽埕區大仁路43號</span>
           </p>
-          <div class="pt-2">
+          
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
             <button 
               id="copyAddressBtn"
-              onclick="copyVenueAddress('台北市中山區中山北路二段39巷3號')"
-              class="inline-flex items-center space-x-2 text-xs text-morandi-dark hover:text-morandi-gold border border-stone-300 rounded-full px-4 py-2 hover:border-morandi-gold transition-colors"
+              onclick="copyVenueAddress('高雄市鹽埕區大仁路43號')"
+              class="inline-flex items-center space-x-2 text-xs text-wa-sumi hover:text-wa-yamabuki border border-wa-border bg-white rounded-full px-5 py-2 hover:border-wa-yamabuki transition-all shadow-sm"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
               </svg>
-              <span>複製宴會地址</span>
+              <span>複製飯店地址</span>
             </button>
-            <span id="copyFeedback" class="text-xs text-morandi-sage font-medium ml-2 hidden">已複製到剪貼簿！</span>
-          </div>
-        </div>
-
-        <div class="space-y-3 pt-4">
-          <div class="text-center mb-4">
-            <span class="text-xs tracking-widest uppercase text-stone-400 font-medium">Transit & Parking</span>
-            <h5 class="text-base font-serifTc text-stone-700">交通指引 (點擊展開)</h5>
-          </div>
-
-          <!-- Accordion Item 1: MRT -->
-          <div class="border border-stone-200 rounded-2xl overflow-hidden bg-stone-50/50">
-            <button 
-              type="button" 
-              onclick="toggleAccordion('acc-mrt', 'icon-mrt')" 
-              class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-stone-100/50 transition-colors"
+            <a 
+              href="https://maps.app.goo.gl/6tqvDdM1cKQDXDA3A" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center space-x-2 text-xs text-white bg-wa-yamabuki hover:bg-wa-yamabuki/90 rounded-full px-5 py-2 transition-all shadow-sm"
             >
-              <div class="flex items-center space-x-3">
-                <span class="w-2 h-2 rounded-full bg-morandi-sage"></span>
-                <span class="text-sm font-medium text-stone-800">
-                  大眾運輸・捷運搭乘方式
-                </span>
-              </div>
-              <svg id="icon-mrt" class="w-4 h-4 text-stone-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
               </svg>
-            </button>
-            <div id="acc-mrt" class="accordion-content px-6 bg-white border-t border-stone-100">
-              <div class="py-4 text-xs sm:text-sm text-stone-600 space-y-2 leading-relaxed font-light">
-                <p>
-                  • 搭乘台北捷運至 <span class="whitespace-nowrap font-medium text-stone-900">捷運中山站 (淡水信義線/松山新店線)</span>，由 <strong>4 號出口</strong> 步行約 5-7 分鐘即可抵達。
-                </p>
-                <p>
-                  • 亦可搭乘至 <span class="whitespace-nowrap font-medium text-stone-900">捷運雙連站 1 號出口</span> 沿中山北路步行前往。
-                </p>
-              </div>
-            </div>
+              <span>開啟 Google Maps App</span>
+            </a>
           </div>
-
-          <!-- Accordion Item 2: Driving & Parking -->
-          <div class="border border-stone-200 rounded-2xl overflow-hidden bg-stone-50/50">
-            <button 
-              type="button" 
-              onclick="toggleAccordion('acc-park', 'icon-park')" 
-              class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-stone-100/50 transition-colors"
-            >
-              <div class="flex items-center space-x-3">
-                <span class="w-2 h-2 rounded-full bg-morandi-gold"></span>
-                <span class="text-sm font-medium text-stone-800">
-                  自行開車與地下特約停車場
-                </span>
-              </div>
-              <svg id="icon-park" class="w-4 h-4 text-stone-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div id="acc-park" class="accordion-content px-6 bg-white border-t border-stone-100">
-              <div class="py-4 text-xs sm:text-sm text-stone-600 space-y-2 leading-relaxed font-light">
-                <p>
-                  • 導航目的地請設定：<span class="whitespace-nowrap font-medium text-stone-900">台北市中山區中山北路二段39巷3號</span>。
-                </p>
-                <p>
-                  • 飯店附設專屬地下停車場 (B4-B5)，婚宴貴賓可享 <strong>當日免費折抵停車 4 小時</strong>，請於離場前向宴會廳接待處登記車牌。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Accordion Item 3: High Speed Rail / Airport -->
-          <div class="border border-stone-200 rounded-2xl overflow-hidden bg-stone-50/50">
-            <button 
-              type="button" 
-              onclick="toggleAccordion('acc-transit', 'icon-transit')" 
-              class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-stone-100/50 transition-colors"
-            >
-              <div class="flex items-center space-x-3">
-                <span class="w-2 h-2 rounded-full bg-stone-400"></span>
-                <span class="text-sm font-medium text-stone-800">
-                  高鐵、台鐵與接駁建議
-                </span>
-              </div>
-              <svg id="icon-transit" class="w-4 h-4 text-stone-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div id="acc-transit" class="accordion-content px-6 bg-white border-t border-stone-100">
-              <div class="py-4 text-xs sm:text-sm text-stone-600 space-y-2 leading-relaxed font-light">
-                <p>
-                  • 外縣市貴賓抵達 <span class="whitespace-nowrap font-medium text-stone-900">台北車站 (高鐵/台鐵)</span> 後，轉乘捷運淡水信義線 1 站即可抵達 <span class="whitespace-nowrap font-medium text-stone-900">捷運中山站</span>；亦可直接搭乘計程車約 5-8 分鐘即可到達。
-                </p>
-              </div>
-            </div>
-          </div>
-
+          <p id="copyFeedback" class="text-xs text-wa-matcha font-medium hidden">已成功複製地址至剪貼簿！</p>
         </div>
 
       </div>
     </div>
   </section>
 
+  <section id="map-section" class="py-20 px-4 max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="section-kicker text-xs tracking-[0.35em] text-wa-yamabuki uppercase font-semibold">Map & Transportation</span>
+      <h3 class="text-2xl font-serifTc tracking-widest text-wa-sumi mt-1">地理位置與交通指引</h3>
+      <div class="w-8 h-0.5 bg-wa-yamabuki/60 mx-auto mt-3"></div>
+    </div>
+
+    <!-- Embedded Google Map -->
+    <div class="rounded-3xl overflow-hidden shadow-card-zen border border-wa-border bg-white p-3 mb-10">
+      <div class="relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden bg-stone-100">
+        <iframe 
+          title="高雄翰品酒店 Google Maps"
+          src="https://maps.google.com/maps?q=%E9%AB%98%E9%9B%84%E7%BF%B0%E5%93%81%E9%85%92%E5%BA%97&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade"
+          class="w-full h-full"
+        ></iframe>
+      </div>
+      <div class="px-3 py-3 flex items-center justify-between text-xs text-stone-500 font-light">
+        <span class="whitespace-nowrap">📍 高雄翰品酒店 Chateau de Chine Kaohsiung</span>
+        <a href="https://maps.app.goo.gl/6tqvDdM1cKQDXDA3A" target="_blank" rel="noopener noreferrer" class="text-wa-yamabuki hover:underline font-medium">開啟大導航 →</a>
+      </div>
+    </div>
+
+    <!-- Accordion Transit Items -->
+    <div class="space-y-3">
+      <div class="text-center mb-3">
+        <span class="text-xs tracking-widest text-stone-400 font-light">各項交通建議 (點擊展開詳細路線)</span>
+      </div>
+
+      <!-- Accordion Item 1: MRT (Kaohsiung MRT) -->
+      <div class="border border-wa-border rounded-2xl overflow-hidden bg-white/70">
+        <button 
+          type="button" 
+          onclick="toggleAccordion('acc-mrt', 'icon-mrt')" 
+          class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-wa-washi/30 transition-colors"
+        >
+          <div class="flex items-center space-x-3">
+            <span class="w-2 h-2 rounded-full bg-wa-matcha"></span>
+            <span class="text-sm font-medium text-wa-sumi">
+              大眾捷運・高雄捷運鹽埕埔站 (步行約 3 分鐘)
+            </span>
+          </div>
+          <svg id="icon-mrt" class="w-4 h-4 text-stone-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div id="acc-mrt" class="accordion-content px-6 bg-white border-t border-wa-border/50">
+          <div class="py-4 text-xs sm:text-sm text-stone-600 space-y-2 leading-relaxed font-light">
+            <p>
+              • 搭乘高雄捷運橘線至 <span class="whitespace-nowrap font-medium text-stone-900">捷運鹽埕埔站</span>，由 <strong>2 號出口</strong> 出站。
+            </p>
+            <p>
+              • 出站後沿大仁路直行步行約 3 分鐘（約 250 公尺），即可抵達 <span class="whitespace-nowrap font-medium text-stone-900">高雄翰品酒店正門</span>。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Item 2: HSR & Railway -->
+      <div class="border border-wa-border rounded-2xl overflow-hidden bg-white/70">
+        <button 
+          type="button" 
+          onclick="toggleAccordion('acc-hsr', 'icon-hsr')" 
+          class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-wa-washi/30 transition-colors"
+        >
+          <div class="flex items-center space-x-3">
+            <span class="w-2 h-2 rounded-full bg-wa-yamabuki"></span>
+            <span class="text-sm font-medium text-wa-sumi">
+              高鐵左營站 / 台鐵高雄車站轉乘方式
+            </span>
+          </div>
+          <svg id="icon-hsr" class="w-4 h-4 text-stone-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div id="acc-hsr" class="accordion-content px-6 bg-white border-t border-wa-border/50">
+          <div class="py-4 text-xs sm:text-sm text-stone-600 space-y-2 leading-relaxed font-light">
+            <p>
+              • <strong>高鐵左營站：</strong>抵達後轉乘高雄捷運紅線至 <span class="whitespace-nowrap font-medium text-stone-900">捷運美麗島站</span>，轉乘橘線往西子灣方向至 <span class="whitespace-nowrap font-medium text-stone-900">捷運鹽埕埔站</span>。
+            </p>
+            <p>
+              • <strong>計程車乘車：</strong>從台鐵高雄車站搭乘計程車約 10-12 分鐘即可抵達；從高鐵左營站車程約 20-25 分鐘。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Item 3: Driving & Parking -->
+      <div class="border border-wa-border rounded-2xl overflow-hidden bg-white/70">
+        <button 
+          type="button" 
+          onclick="toggleAccordion('acc-park', 'icon-park')" 
+          class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-wa-washi/30 transition-colors"
+        >
+          <div class="flex items-center space-x-3">
+            <span class="w-2 h-2 rounded-full bg-stone-400"></span>
+            <span class="text-sm font-medium text-wa-sumi">
+              自行開車與飯店專屬/特約停車場
+            </span>
+          </div>
+          <svg id="icon-park" class="w-4 h-4 text-stone-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div id="acc-park" class="accordion-content px-6 bg-white border-t border-wa-border/50">
+          <div class="py-4 text-xs sm:text-sm text-stone-600 space-y-2 leading-relaxed font-light">
+            <p>
+              • 車輛 GPS 導航設定：<span class="whitespace-nowrap font-medium text-stone-900">高雄市鹽埕區大仁路43號</span>。
+            </p>
+            <p>
+              • 飯店備有專屬地下機械/平面停車場及特約停車位。婚宴賓客可享 <strong>免費折抵停車時數</strong>，請於離場前向 5 樓福明廳接待處出示停車證明或登記車號。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <section id="rsvp" class="py-24 px-4 max-w-3xl mx-auto">
     <div class="text-center mb-12">
-      <span class="text-xs tracking-[0.35em] text-morandi-gold uppercase font-semibold">RSVP</span>
-      <h2 class="text-2xl sm:text-3xl font-serifTc tracking-widest text-stone-800 mt-1">出席回函</h2>
+      <div class="inline-flex items-center space-x-2 mb-2">
+        <span class="hanko-stamp">回函</span>
+        <span class="text-xs tracking-[0.35em] text-wa-yamabuki uppercase font-semibold">RSVP</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-serifTc tracking-widest text-wa-sumi mt-1">出席回函</h2>
       <p class="text-xs sm:text-sm text-stone-500 font-light mt-2">
-        請於 <span class="font-medium text-morandi-dark">2026 年 10 月 15 日</span> 前撥冗填寫，以利我們安排最佳座位與餐點。
+        為利主廚精準備膳與座位安排，敬請於 <span class="font-medium text-wa-sumi">2027 年 1 月 31 日</span> 前撥冗填寫回覆。
       </p>
-      <div class="w-10 h-0.5 bg-morandi-gold/60 mx-auto mt-3"></div>
+      <div class="w-8 h-0.5 bg-wa-yamabuki/60 mx-auto mt-3"></div>
     </div>
 
     <!-- Hidden Iframe for silent Google Form Submission -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
 
-    <!-- RSVP Form Card -->
-    <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-card-soft border border-stone-200/80">
-      
-      <!-- 
-        技術說明：
-        已配置 target="hidden_iframe"，提交時不會跳轉頁面。
-        action 屬性請填入您的 Google Form 回應網址 (格式為 https://docs.google.com/forms/d/e/.../formResponse)
-        所有 input name="entry.XXXXXX" 中的 ID 均為空輸入狀態，無任何預填 AAAA 字串。
-      -->
+    <!-- RSVP Form Card with Connected Google Form -->
+    <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-card-zen border border-wa-border">
       <form 
         id="weddingRsvpForm" 
-        action="https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/formResponse" 
+        action="https://docs.google.com/forms/d/e/1FAIpQLSffsZEfRwKtqxDMsvUvxVbS0CphP69BpTop-arS3lfKfwoaYQ/formResponse" 
         method="POST" 
         target="hidden_iframe" 
         class="space-y-6"
         onsubmit="handleFormSubmit(event)"
       >
-        
-        <!-- Field 1: Name (Bilingual Label) -->
+        <!-- Field 1: Name (entry.157110616) -->
         <div>
-          <label for="guest_name" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
+          <label for="guest_name" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
             姓名 NAME <span class="text-rose-500">*</span>
           </label>
           <input 
             type="text" 
             id="guest_name" 
-            name="entry.1000001" 
+            name="entry.157110616" 
             required 
-            placeholder="請輸入您的真實姓名" 
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all"
+            placeholder="請輸入您的姓名" 
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/20 text-stone-800"
           />
         </div>
 
-        <!-- Field 2: Phone (Bilingual Label) -->
+        <!-- Field 2: Email (entry.351634674) -->
         <div>
-          <label for="guest_phone" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
-            聯絡電話 PHONE <span class="text-rose-500">*</span>
+          <label for="guest_email" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
+            電子信箱 EMAIL <span class="text-rose-500">*</span>
           </label>
           <input 
-            type="tel" 
-            id="guest_phone" 
-            name="entry.1000002" 
+            type="email" 
+            id="guest_email" 
+            name="entry.351634674" 
             required 
-            placeholder="例：0912345678" 
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all"
+            placeholder="例：yourname@example.com" 
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/20 text-stone-800"
           />
         </div>
 
-        <!-- Field 3: Attendance (Bilingual Label, Pure Chinese Options) -->
+        <!-- Field 3: Relationship (entry.1934637915) -->
         <div>
-          <label for="guest_attendance" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
-            出席意願 ATTENDANCE <span class="text-rose-500">*</span>
+          <label for="guest_relation" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
+            與新人的關係 RELATIONSHIP <span class="text-rose-500">*</span>
           </label>
           <select 
-            id="guest_attendance" 
-            name="entry.1000003" 
+            id="guest_relation" 
+            name="entry.1934637915" 
             required 
-            onchange="handleAttendanceChange(this.value)"
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all bg-white"
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-white text-stone-800"
           >
-            <option value="" disabled selected>請選擇出席意願</option>
-            <option value="一定出席，熱切期待！">一定出席，熱切期待！</option>
-            <option value="心意相隨，因故無法出席">心意相隨，因故無法出席</option>
+            <option value="" disabled selected>請選擇您與新人的關係</option>
+            <option value="男方好友">男方好友</option>
+            <option value="男方親戚">男方親友</option>
+            <option value="女方好友">女方好友</option>
+            <option value="女方親戚">女方親友</option>
+            <option value="共同好友">共同朋友</option>
           </select>
         </div>
 
-        <!-- Field 4: Luncheon Attendees (Bilingual Label) -->
+        <!-- Field 4: Banquet Attendees (entry.2036021590) -->
         <div id="attendees-count-group">
-          <label for="guest_count" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
-            參加午宴人數 GUESTS (含本人) <span class="text-rose-500">*</span>
+          <label for="guest_count_select" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
+            出席人數 ATTENDEES <span class="text-rose-500">*</span>
           </label>
-          <input 
-            type="number" 
-            id="guest_count" 
-            name="entry.1000004" 
-            min="0" 
-            max="10" 
-            value="0" 
+          <select 
+            id="guest_count_select" 
+            name="entry.2036021590" 
             required 
-            oninput="handleGuestCountChange(this.value)"
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all"
-          />
-          <span class="text-[11px] text-stone-400 mt-1 block">若無法出席請填 0；若本人出席請至少填 1。</span>
+            onchange="handleGuestSelectionChange(this.value)"
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-white text-stone-800"
+          >
+            <option value="" disabled selected>請選擇出席人數</option>
+            <option value="1位">1位</option>
+            <option value="2位">2位</option>
+            <option value="3位">3位</option>
+            <option value="4位">4位</option>
+            <option value="5位以上">5位以上</option>
+            <option value="無法出席">心意相隨・無法出席 (0位)</option>
+          </select>
+          <span class="text-[11px] text-stone-400 mt-1 block">選擇出席後將展開飲食與幼童座位需求選項。</span>
         </div>
 
-        <!-- Field 5: Dietary Preference (Only visible if guest_count > 0) -->
+        <!-- Field 5: Dietary Preference (entry.1300489614) -->
         <div id="dietary-group" class="hidden transition-all duration-300">
-          <label for="guest_diet" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
-            飲食需求 DIETARY
+          <label for="guest_diet" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
+            飲食需求 DIETARY PREFERENCE
           </label>
           <select 
             id="guest_diet" 
-            name="entry.1000005" 
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all bg-white"
+            name="entry.1300489614" 
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-white text-stone-800"
           >
             <option value="葷食">葷食</option>
-            <option value="全素">全素</option>
+            <option value="素食">全素</option>
             <option value="蛋奶素">蛋奶素</option>
-            <option value="海鮮過敏等特殊需求 (請填於備註)">特殊需求 (請填於祝福與備註)</option>
+            <option value="特殊需求 (請見備註)">特殊需求 (請填於下方備註)</option>
           </select>
         </div>
 
-        <!-- Field 6: High Chair Need (Only visible if guest_count > 0) -->
+        <!-- Field 6: High Chair Need (entry.175092321) -->
         <div id="highchair-group" class="hidden transition-all duration-300">
-          <label for="guest_highchair" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
+          <label for="guest_highchair" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
             是否需要兒童椅 NEED HIGH CHAIR
           </label>
           <select 
             id="guest_highchair" 
-            name="entry.1000006" 
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all bg-white"
+            name="entry.175092321" 
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-white text-stone-800"
           >
             <option value="不需要">不需要</option>
-            <option value="需要 1 張">需要 1 張</option>
-            <option value="需要 2 張">需要 2 張</option>
-            <option value="需要 3 張以上">需要 3 張以上</option>
+            <option value="需要">需要兒童椅</option>
           </select>
         </div>
 
-        <!-- Field 7: Blessings & Notes (Bilingual Label) -->
+        <!-- Field 7: Blessings & Notes (entry.1758132440) -->
         <div>
-          <label for="guest_notes" class="block text-xs font-semibold tracking-wider text-stone-700 uppercase mb-2">
+          <label for="guest_notes" class="block text-xs font-semibold tracking-wider text-wa-sumi uppercase mb-2">
             給新人的祝福與備註 WISHES & NOTES
           </label>
           <textarea 
             id="guest_notes" 
-            name="entry.1000007" 
+            name="entry.1758132440" 
             rows="3" 
-            placeholder="請留下您對新人的暖心祝福或特殊餐飲備註..." 
-            class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-morandi-gold/50 focus:border-morandi-gold transition-all"
+            placeholder="請留下您對 Steve & Esther 的溫暖祝福或特殊需求..." 
+            class="w-full px-4 py-3 rounded-xl border border-wa-border text-sm focus:outline-none focus:ring-2 focus:ring-wa-yamabuki/50 focus:border-wa-yamabuki transition-all bg-wa-kinari/20 text-stone-800"
           ></textarea>
         </div>
 
@@ -606,77 +718,51 @@
           <button 
             type="submit" 
             id="submitBtn"
-            class="w-full py-3.5 px-6 rounded-xl bg-morandi-gold text-white font-medium text-sm tracking-widest uppercase hover:bg-morandi-gold/90 active:scale-[0.99] transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+            class="w-full py-3.5 px-6 rounded-xl bg-wa-yamabuki text-white font-medium text-sm tracking-widest uppercase hover:bg-wa-yamabuki/90 active:scale-[0.99] transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
           >
             <span>確認送出回函 CONFIRM RSVP</span>
           </button>
         </div>
-
       </form>
     </div>
   </section>
 
-  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
-    <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-5 shadow-2xl transform scale-95 transition-transform duration-300" id="modalCard">
-      <div class="w-14 h-14 bg-morandi-sand rounded-full flex items-center justify-center mx-auto text-morandi-gold">
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-wa-sumi/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-5 shadow-2xl transform scale-95 transition-transform duration-300 border border-wa-border" id="modalCard">
+      <div class="w-14 h-14 bg-wa-kinari rounded-full flex items-center justify-center mx-auto text-wa-yamabuki border border-wa-yamabuki/30">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>
       </div>
       <div>
-        <h3 class="text-xl font-serifTc text-morandi-dark font-medium">感謝您的祝福與回覆</h3>
+        <h3 class="text-xl font-serifTc text-wa-sumi font-medium">感謝您的祝福與回覆</h3>
         <p class="text-xs sm:text-sm text-stone-500 font-light mt-2 leading-relaxed">
-          我們已收到您的出席資訊，無比期待在暖陽相映的婚禮現場與您相見！
+          我們已收到您的出席資訊，由衷期待於 2027 年早春之夜，在高雄翰品酒店與您共度良辰！
         </p>
       </div>
       <button 
         type="button" 
         onclick="closeSuccessModal()"
-        class="w-full py-2.5 rounded-full bg-morandi-dark text-white text-xs tracking-widest uppercase hover:bg-morandi-gold transition-colors"
+        class="w-full py-2.5 rounded-full bg-wa-sumi text-white text-xs tracking-widest uppercase hover:bg-wa-yamabuki transition-colors"
       >
         確認關閉 CLOSE
       </button>
     </div>
   </div>
 
-  <footer class="py-12 text-center text-stone-400 text-xs border-t border-stone-200/60 bg-stone-50">
+  <footer class="py-12 text-center text-stone-400 text-xs border-t border-wa-border/60 bg-wa-kinari/50">
     <div class="max-w-4xl mx-auto px-4 space-y-2">
-      <p class="font-cormorant text-xl text-morandi-dark tracking-widest">Julian & Evelyn</p>
-      <p class="tracking-widest">2026.11.28 • TAIPEI</p>
+      <div class="flex items-center justify-center space-x-2">
+        <span class="hanko-stamp">美滿</span>
+        <p class="font-cormorant text-xl text-wa-sumi tracking-widest">Steve & Esther</p>
+      </div>
+      <p class="tracking-widest">2027.03.06 • KAOHSIUNG</p>
       <p class="text-[10px] text-stone-400 pt-3">With love and gratitude • All Rights Reserved</p>
     </div>
   </footer>
 
   <script>
-    // 1. Countdown Logic to Target Date
-    const targetDate = new Date('2026-11-28T12:00:00+08:00').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const difference = targetDate - now;
-
-      if (difference <= 0) {
-        document.getElementById('days').innerText = '00';
-        document.getElementById('hours').innerText = '00';
-        document.getElementById('minutes').innerText = '00';
-        document.getElementById('seconds').innerText = '00';
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      document.getElementById('days').innerText = String(days).padStart(2, '0');
-      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
+    // ... existing code ... ...
     // 2. Accordion Interaction Logic
     function toggleAccordion(contentId, iconId) {
       const content = document.getElementById(contentId);
@@ -684,7 +770,7 @@
       
       const isOpen = content.classList.contains('open');
 
-      // Close all other accordion items for clean UX
+      // Close all other accordion items for clean minimalist UX
       document.querySelectorAll('.accordion-content').forEach(el => {
         el.classList.remove('open');
       });
@@ -698,29 +784,17 @@
       }
     }
 
-    // 3. Intelligent Form Dependency Logic
-    function handleGuestCountChange(countValue) {
-      const count = parseInt(countValue, 10);
+    // 3. Intelligent Form Dependency Logic based on Google Form Attendee Field
+    function handleGuestSelectionChange(attendeeValue) {
       const dietaryGroup = document.getElementById('dietary-group');
       const highchairGroup = document.getElementById('highchair-group');
 
-      if (!isNaN(count) && count > 0) {
+      if (attendeeValue && attendeeValue !== '無法出席') {
         dietaryGroup.classList.remove('hidden');
         highchairGroup.classList.remove('hidden');
       } else {
         dietaryGroup.classList.add('hidden');
         highchairGroup.classList.add('hidden');
-      }
-    }
-
-    function handleAttendanceChange(attendanceValue) {
-      const guestCountInput = document.getElementById('guest_count');
-      if (attendanceValue === '心意相隨，因故無法出席') {
-        guestCountInput.value = '0';
-        handleGuestCountChange(0);
-      } else if (attendanceValue === '一定出席，熱切期待！' && parseInt(guestCountInput.value, 10) === 0) {
-        guestCountInput.value = '1';
-        handleGuestCountChange(1);
       }
     }
 
@@ -736,11 +810,11 @@
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
         </svg>
-        <span>處理中 SUBMITTING...</span>
+        <span>傳送中 SENDING...</span>
       `;
       formSubmitted = true;
       
-      // Fallback in case hidden iframe doesn't fire load event across cross-origin
+      // Fallback timeout in case cross-origin iframe does not trigger load event
       setTimeout(() => {
         if (formSubmitted) {
           showSuccessModal();
@@ -768,9 +842,9 @@
       submitBtn.classList.remove('opacity-75');
       submitBtn.innerHTML = `<span>確認送出回函 CONFIRM RSVP</span>`;
       
-      // Reset form
+      // Reset form safely
       document.getElementById('weddingRsvpForm').reset();
-      handleGuestCountChange(0);
+      handleGuestSelectionChange('無法出席');
       formSubmitted = false;
     }
 
@@ -783,7 +857,7 @@
       card.classList.add('scale-95');
     }
 
-    // 5. Copy Address Helper (Using document.execCommand('copy') for iframe safety)
+    // 5. Copy Address Helper (Using document.execCommand('copy') for safe iframe compatibility)
     function copyVenueAddress(text) {
       const tempInput = document.createElement('textarea');
       tempInput.value = text;
