@@ -138,7 +138,7 @@
   <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-wa-border/60 transition-all duration-300">
     <div class="max-w-5xl mx-auto px-6 h-18 flex items-center justify-between">
       <a href="#hero" class="flex items-center space-x-2 text-wa-sumi hover:text-wa-yamabuki transition-colors">
-        <span class="font-cormorant text-2xl tracking-[0.25em] font-medium">S & E</span>
+        <span class="font-cormorant text-2xl tracking-[0.25em] font-medium">S × E</span>
         <span class="hanko-stamp hidden sm:inline-block">良緣</span>
       </a>
       
@@ -580,16 +580,14 @@
       <div class="w-8 h-0.5 bg-wa-yamabuki/60 mx-auto mt-3"></div>
     </div>
 
-    <!-- Hidden Iframe for silent Google Form Submission -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
-
+    <!-- GitHub Pages compatible submission: handled by JavaScript fetch() -->
     <!-- RSVP Form Card with Connected Google Form -->
     <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-card-zen border border-wa-border">
       <form 
         id="weddingRsvpForm" 
         action="https://docs.google.com/forms/d/e/1FAIpQLSffsZEfRwKtqxDMsvUvxVbS0CphP69BpTop-arS3lfKfwoaYQ/formResponse" 
         method="POST" 
-        target="hidden_iframe" 
+        accept-charset="UTF-8"
         class="space-y-6"
         onsubmit="handleFormSubmit(event)"
       >
@@ -759,6 +757,10 @@
           >
             <span>確認送出回函 CONFIRM RSVP</span>
           </button>
+
+          <p id="submitError" class="hidden text-center text-xs text-rose-600 leading-relaxed">
+            回函傳送失敗，請檢查網路連線後再試一次，或使用下方 Google 表單連結直接填寫。
+          </p>
           
           <div class="text-center">
             <a 
@@ -928,44 +930,100 @@
     function handleGuestSelectionChange(attendeeValue) {
       const dietaryGroup = document.getElementById('dietary-group');
       const highchairGroup = document.getElementById('highchair-group');
+      const dietarySelect = document.getElementById('guest_diet');
+      const highchairSelect = document.getElementById('guest_highchair');
 
       if (attendeeValue && attendeeValue !== '無法出席') {
         dietaryGroup.classList.remove('hidden');
         highchairGroup.classList.remove('hidden');
+        dietarySelect.disabled = false;
+        highchairSelect.disabled = false;
       } else {
         dietaryGroup.classList.add('hidden');
         highchairGroup.classList.add('hidden');
+        dietarySelect.disabled = true;
+        highchairSelect.disabled = true;
       }
     }
 
-    /* 4. Google 表單靜默提交與致謝彈窗機制 */
-    let formSubmitted = false;
+    handleGuestSelectionChange('無法出席');
 
-    function handleFormSubmit(e) {
-      syncContactData();
+    /* 4. Google 表單提交：GitHub Pages 相容版本
+       - 使用 fetch + no-cors 直接 POST 至 Google Forms
+       - 不再依賴 hidden iframe，避免 GitHub Pages / Safari / 瀏覽器防追蹤造成 iframe 提交異常
+       - 只有請求成功送出後才顯示完成視窗；網路錯誤時保留表單內容並顯示提示
+    */
+    let isSubmitting = false;
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      if (isSubmitting) return;
+
+      const form = document.getElementById('weddingRsvpForm');
       const submitBtn = document.getElementById('submitBtn');
+      const submitError = document.getElementById('submitError');
+
+      // 再次同步聯絡方式到真正送往 Google Forms 的 hidden input
+      syncContactData();
+
+      // 使用瀏覽器原生驗證；資料不完整時不送出
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      if (!document.getElementById('real_contact_input').value.trim()) {
+        document.getElementById('contact_value_display').focus();
+        return;
+      }
+
+      isSubmitting = true;
+      submitError.classList.add('hidden');
       submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-75');
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
       submitBtn.innerHTML = `
-        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24">
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24" aria-hidden="true">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
         </svg>
         <span>傳送中 SENDING...</span>
       `;
-      formSubmitted = true;
 
-      // 設置安全計時機制確保即時彈出完成視窗
-      setTimeout(() => {
-        if (formSubmitted) {
-          showSuccessModal();
+      try {
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+
+        for (const [key, value] of formData.entries()) {
+          params.append(key, String(value));
         }
-      }, 1000);
-    }
 
-    function handleIframeLoad() {
-      if (formSubmitted) {
+        // 避免請求永久停住；15 秒後視為網路失敗
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+        await fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          cache: 'no-store',
+          credentials: 'omit',
+          redirect: 'follow',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+          },
+          body: params.toString(),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
         showSuccessModal();
+      } catch (error) {
+        console.error('Google Form submission failed:', error);
+        submitError.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `<span>再次送出 TRY AGAIN</span>`;
+        isSubmitting = false;
       }
     }
 
@@ -988,7 +1046,7 @@
       document.getElementById('real_contact_input').value = '';
       setContactMethod('email');
       handleGuestSelectionChange('無法出席');
-      formSubmitted = false;
+      isSubmitting = false;
     }
 
     function closeSuccessModal() {
