@@ -580,13 +580,26 @@
       <div class="w-8 h-0.5 bg-wa-yamabuki/60 mx-auto mt-3"></div>
     </div>
 
-    <!-- GitHub Pages compatible submission: handled by JavaScript fetch() -->
+    <!-- Google Form entry mapping verified from the pre-filled link provided by the form owner:
+         entry.157110616 = 姓名
+         entry.351634674 = 聯絡方式（直接值，不加前綴）
+         entry.1934637915 = 與新人關係
+         entry.2036021590 = 出席人數
+         entry.1300489614 = 飲食需求
+         entry.175092321 = 兒童椅
+         entry.1758132440 = 祝福與備註
+    -->
+    <!-- GitHub Pages compatible submission: native HTML POST to Google Forms in a hidden iframe.
+         This avoids CORS/fetch restrictions on static hosting. -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
+
     <!-- RSVP Form Card with Connected Google Form -->
     <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-card-zen border border-wa-border">
       <form 
         id="weddingRsvpForm" 
         action="https://docs.google.com/forms/d/e/1FAIpQLSffsZEfRwKtqxDMsvUvxVbS0CphP69BpTop-arS3lfKfwoaYQ/formResponse" 
         method="POST" 
+        target="hidden_iframe"
         accept-charset="UTF-8"
         class="space-y-6"
         onsubmit="handleFormSubmit(event)"
@@ -672,7 +685,7 @@
           >
             <option value="" disabled selected>請選擇您與新人的關係</option>
             <option value="男方好友">男方好友</option>
-            <option value="男方親戚">男方親友</option>
+            <option value="男方家人親戚">男方家人親戚</option>
             <option value="女方好友">女方好友</option>
             <option value="女方親戚">女方親友</option>
             <option value="共同好友">共同朋友</option>
@@ -898,13 +911,9 @@
         return;
       }
       
-      const labels = {
-        email: '[Email]',
-        phone: '[電話]',
-        line: '[LINE]'
-      };
-      // 自動加上前綴送出至 Google 表單 entry.351634674，方便新人後台一目了然
-      realInput.value = `${labels[currentContactMethod] || ''} ${displayVal}`;
+      // 依 Google Form 預填網址的格式，entry.351634674 必須直接送出使用者輸入值。
+      // 不加入 [Email] / [電話] / [LINE] 前綴，避免 Google Form 的欄位驗證拒絕資料。
+      realInput.value = displayVal;
     }
 
     /* 3. Accordion 摺疊交通資訊面板邏輯 */
@@ -948,37 +957,35 @@
 
     handleGuestSelectionChange('無法出席');
 
-    /* 4. Google 表單提交：GitHub Pages 相容版本
-       - 使用 fetch + no-cors 直接 POST 至 Google Forms
-       - 不再依賴 hidden iframe，避免 GitHub Pages / Safari / 瀏覽器防追蹤造成 iframe 提交異常
-       - 只有請求成功送出後才顯示完成視窗；網路錯誤時保留表單內容並顯示提示
+    /* 4. Google 表單提交：GitHub Pages 穩定版
+       - 使用原生 HTML form POST 到 Google Forms /formResponse
+       - target 指向 hidden iframe，因此 GitHub Pages 不需要處理 CORS
+       - entry ID 與使用者提供的 Google Form 預填網址一致
+       - 不再使用 fetch(no-cors)，避免「前端顯示成功但無法判斷 Google 是否接受」的混淆
     */
-    let isSubmitting = false;
+    let formSubmitted = false;
 
-    async function handleFormSubmit(e) {
-      e.preventDefault();
-
-      if (isSubmitting) return;
-
+    function handleFormSubmit(e) {
       const form = document.getElementById('weddingRsvpForm');
       const submitBtn = document.getElementById('submitBtn');
       const submitError = document.getElementById('submitError');
 
-      // 再次同步聯絡方式到真正送往 Google Forms 的 hidden input
+      // 將聯絡方式同步成 Google Form 需要的原始值
       syncContactData();
 
-      // 使用瀏覽器原生驗證；資料不完整時不送出
       if (!form.checkValidity()) {
+        e.preventDefault();
         form.reportValidity();
-        return;
+        return false;
       }
 
       if (!document.getElementById('real_contact_input').value.trim()) {
+        e.preventDefault();
         document.getElementById('contact_value_display').focus();
-        return;
+        return false;
       }
 
-      isSubmitting = true;
+      formSubmitted = true;
       submitError.classList.add('hidden');
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
@@ -990,41 +997,18 @@
         <span>傳送中 SENDING...</span>
       `;
 
-      try {
-        const formData = new FormData(form);
-        const params = new URLSearchParams();
+      // 不呼叫 preventDefault：讓瀏覽器原生 POST 到 hidden iframe
+      return true;
+    }
 
-        for (const [key, value] of formData.entries()) {
-          params.append(key, String(value));
-        }
+    function handleIframeLoad() {
+      if (!formSubmitted) return;
 
-        // 避免請求永久停住；15 秒後視為網路失敗
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
-
-        await fetch(form.action, {
-          method: 'POST',
-          mode: 'no-cors',
-          cache: 'no-store',
-          credentials: 'omit',
-          redirect: 'follow',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-          },
-          body: params.toString(),
-          signal: controller.signal
-        });
-
-        clearTimeout(timeoutId);
+      formSubmitted = false;
+      // iframe 完成 Google Forms 回應後才顯示完成視窗
+      setTimeout(() => {
         showSuccessModal();
-      } catch (error) {
-        console.error('Google Form submission failed:', error);
-        submitError.classList.remove('hidden');
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-        submitBtn.innerHTML = `<span>再次送出 TRY AGAIN</span>`;
-        isSubmitting = false;
-      }
+      }, 300);
     }
 
     function showSuccessModal() {
@@ -1046,7 +1030,6 @@
       document.getElementById('real_contact_input').value = '';
       setContactMethod('email');
       handleGuestSelectionChange('無法出席');
-      isSubmitting = false;
     }
 
     function closeSuccessModal() {
